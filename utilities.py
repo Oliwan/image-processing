@@ -93,3 +93,23 @@ def drawMatches(img1, kp1, img2, kp2, matches):
 def imshow(img):
     plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
     plt.show()
+
+from PIL import Image
+from netpbmfile import *
+
+def pgm2pil(fname):
+    #
+    # This method returns a PIL.Image.  
+    #
+    pam = NetpbmFile(fname)
+    a = pam.asarray(copy=False)
+
+    return Image.fromarray(a)
+
+def wrapper_open_ppm(fname):
+    pgm = pgm2pil(fname)
+
+    if pgm is not None:
+        return pgm
+    return Image.open(fname)
+
